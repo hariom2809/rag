@@ -1,0 +1,8 @@
+python-dotenv
+logfire
+
+# file loaders
+bs4
+pypdf
+pdfplumber
+unstructured
