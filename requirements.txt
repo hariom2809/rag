@@ -6,3 +6,9 @@ bs4
 pypdf
 pdfplumber
 unstructured
+
+# Gen AI Packages
+sentence-transformers
+
+# Google packages
+langchain-google-genai
