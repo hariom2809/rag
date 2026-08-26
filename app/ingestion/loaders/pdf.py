@@ -6,7 +6,7 @@ def parse_pdf(file_path: str):
         try:
             reader = PdfReader(file_path)
             total_pages = len(reader.pages)
-            logfire.info("PDF has {total_pages} pages")
+            logfire.info(f"PDF has {total_pages} pages")
 
             text_parts: list[str] = []
             blank_pages: list[int] = []
@@ -19,27 +19,27 @@ def parse_pdf(file_path: str):
                     blank_pages.append(i + 1)
 
             if blank_pages:
-                logfire.info("⚠️ Pdf retured blank pages {blank pages} - retrying with pyplumber")
+                logfire.info(f"⚠️ Pdf retured blank pages {blank_pages} - retrying with pyplumber")
                 try:
                     import pdfplumber
                     with pdfplumber.open(file_path) as pdf:
                         for page_num in blank_pages:
-                            page = pdf.page[page_num - 1]
-                            fallback_page = page.extract_texgt() or ""
+                            page = pdf.pages[page_num - 1]
+                            fallback_page = page.extract_text() or ""
                             if fallback_page.strip():
                                 text_parts.append(fallback_page)
                 except Exception as plumber_error:
-                    logfire.warning("❌ PdfPlumber fallback Failed: {plumber_error}")
+                    logfire.warning(f"❌ PdfPlumber fallback Failed: {plumber_error}")
 
-            full_tet = "\n".join(text_parts)
+            full_text = "\n".join(text_parts)
 
-            if not full_tet.strip():
-                logfire.warning("❌ No text extracted from {file_path}")
+            if not full_text.strip():
+                logfire.warning(f"❌ No text extracted from {file_path}")
             else:
-                logfire.info("✔️ Extracted {len(full_text)} from {file_path}")
+                logfire.info(f"✔️ Extracted {len(full_text)} from {file_path}")
 
-            return full_tet
+            return full_text
         
         except Exception as e:
-            logfire.warning("❌ PDf Parsing Failed: {e}")
-            return e
+            logfire.error(f"❌ PDf Parsing Failed: {e}")
+            raise e

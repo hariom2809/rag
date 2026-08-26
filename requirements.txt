@@ -5,10 +5,13 @@ logfire
 bs4
 pypdf
 pdfplumber
-unstructured
+unstructured[docx,pptx]
 
 # Gen AI Packages
 sentence-transformers
 
 # Google packages
 langchain-google-genai
+
+# Qdrant
+qdrant-client

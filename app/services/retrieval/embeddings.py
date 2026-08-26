@@ -22,7 +22,7 @@ def _probe_gemini():
         return model
     except Exception as e:
         logfire.warning("Gemini Embedding Failed: {e}, Useing Fallback Sentence Transformers")
-        return e
+        return None
 
 
 def _load_fallback():
@@ -54,7 +54,7 @@ def get_embedding_dim() -> int:
 
 
 def _embed_batch(batch: list[str]) -> list[list[float]]:
-    if _active_model == "gemini":
+    if _model_type == "gemini":
         for attempt in range(4):
             try:
                 return _active_model.embed_documents(batch)
@@ -69,7 +69,8 @@ def _embed_batch(batch: list[str]) -> list[list[float]]:
                     )
                     time.sleep(wait)
                 else:
-                    logfire.error("❌ Gemini Embedding Failed: {e}")
+                    logfire.error(f"❌ Gemini Embedding Failed: {e}")
+                    raise
         raise RuntimeError("Gemini Rate Limit Persisted after 4 attempts")
     else:
         return _active_model.encode(batch, show_progress_bar=False).tolist()
@@ -78,7 +79,7 @@ def _embed_batch(batch: list[str]) -> list[list[float]]:
 def embed_query(query: str) -> list[float]:
     _init()
     if _model_type == "gemini":
-        return _active_model.model_query(query)
+        return _active_model.embed_query(query)
     return _active_model.encode([query])[0].tolist()
 
 
@@ -88,5 +89,5 @@ def embed_texts(texts: list[str]) -> list[list[float]]:
     for i in range(0, len(texts), BATCH_SIZE):
         batch = texts[i : i + BATCH_SIZE]
         with logfire.span("Embed Batch", model=_model_type, start=i, size=len(batch)):
-            all_embeddings.extend(_embed_batch(batch=))
+            all_embeddings.extend(_embed_batch(batch))
     return all_embeddings

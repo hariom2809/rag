@@ -12,3 +12,7 @@ uv venv --python 3.11
 ```bash
 source .venv/Scripts/activate
 ```
+
+```bash
+python -m app.ingestion.processor DATA/true_data true
+```
