@@ -15,7 +15,7 @@ def planner_node(state: AgentState):
     Planner node Determines whether the search is needed based on ENTIRE conversation
     """
     history = ""
-    for msg in state["messagess"][:-1]:
+    for msg in state["messages"][:-1]:
         role = "user" if msg["role"] == "user" else "Assistant"
         history += f"{role}: {msg['content']}\n"
 
