@@ -17,7 +17,7 @@ def planner_node(state: AgentState):
     history = ""
     for msg in state["messagess"][:-1]:
         role = "user" if msg["role"] == "user" else "Assistant"
-        history += f"{role}: {msg["content"]}\n"
+        history += f"{role}: {msg['content']}\n"
 
     user_message = state["messages"][-1]["content"] if state["messages"] else ""
 

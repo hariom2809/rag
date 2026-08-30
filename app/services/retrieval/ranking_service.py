@@ -41,11 +41,11 @@ def rank_documents(query: str, documents: list[str], top_no: int = 5) -> list[st
         passages = [ {"id": i, "text": doc} for i, doc in enumerate(documents) ]
 
         request = RerankRequest(query=query, passages=passages)
-        results = ranker.rerank(request=)
+        results = ranker.rerank(request)
 
         ranked_docs = []
         for res in results[top_no]:
-            ranked_docs.append(res.["text"])
+            ranked_docs.append(res["text"])
 
         duration = time.time() - start_time
         top_score = results[0]["score"] if results else "N/A"
