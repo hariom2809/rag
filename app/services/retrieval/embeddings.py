@@ -11,7 +11,9 @@ _active_model = None
 _model_type: str | None = None
 
 def _probe_gemini():
-    "Testing the whether the Gemini API is reachable or not"
+    """
+    Check whether the Gemini Model is reachable or not with API call
+    """
     try:
         model = GoogleGenerativeAIEmbeddings(
             model="models/gemini-embedding-2-preview",
@@ -24,16 +26,18 @@ def _probe_gemini():
         logfire.warning("Gemini Embedding Failed: {e}, Useing Fallback Sentence Transformers")
         return None
 
-
 def _load_fallback():
+    """
+    Load Fallback Sentence Transforemre model if the Gemini is not reachable Before starting Ingestion
+    """
     from sentence_transformers import SentenceTransformer
     logfire.info("Loading Fallback Embedding (all-mpnet-base-v2, 768 DIM)")
     return SentenceTransformer("all-mpnet-base-v2")
 
-
 def _init():
-    "Start the Embedding Model, lazily work at first use"
-
+    """
+    Initailize the Ingestion Process and define which model to use in Entire process
+    """
     global _active_model, _model_type
     if _active_model is not None:
         return
@@ -46,9 +50,10 @@ def _init():
         _active_model = _load_fallback()
         _model_type = "fallback"
 
-
 def get_embedding_dim() -> int:
-    "Give the Embedding Dimesion to vectorize out data. Run after _init()"
+    """
+    Give the Dimesion on which the whole ingestion process will work for the Embeddings model
+    """
     _init()
     return _GEMINI_DIM if _model_type == "gemini" else _FALLBACK_DIM
 
@@ -75,13 +80,11 @@ def _embed_batch(batch: list[str]) -> list[list[float]]:
     else:
         return _active_model.encode(batch, show_progress_bar=False).tolist()
 
-
 def embed_query(query: str) -> list[float]:
     _init()
     if _model_type == "gemini":
         return _active_model.embed_query(query)
     return _active_model.encode([query])[0].tolist()
-
 
 def embed_texts(texts: list[str]) -> list[list[float]]:
     _init()

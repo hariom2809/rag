@@ -1,3 +1,5 @@
+fastapi
+uvicorn[fastapi]
 python-dotenv
 logfire
 
@@ -13,5 +15,12 @@ sentence-transformers
 # Google packages
 langchain-google-genai
 
+# Langchain packages
+langchain-groq
+langgraph
+
 # Qdrant
 qdrant-client
+
+# Ranker
+flashrank
