@@ -13,7 +13,7 @@ workflow.add_node("retriever", retrieval_node)
 
 def route_planner(state: AgentState):
     """
-    Route the workflow based on the planner descision.
+    Route the workflow based on the planner decision.
     """
     if state["current_query"] == "CONVERSATIONAL":
         return "responder"
