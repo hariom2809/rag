@@ -8,15 +8,20 @@ logfire.configure(token=os.getenv("LOGFIRE_TOKEN"))
 from fastapi import FastAPI
 from fastapi.responses import Response
 from app.agents.graph import rag_agent
+from app.guradrails.rails import initialize_rails, guard
 
 from pydantic import BaseModel
 from typing import Optional
 
-app = FastAPI(title="Enterprise Agentic AI RAG")
-
 class QueryRequest(BaseModel):
     q: str
     thread_id: Optional[str] = "default_user"
+
+app = FastAPI(title="Enterprise Agentic AI RAG")
+
+@app.on_event("startup")
+def startup_event():
+    initialize_rails()
 
 @app.get("/")
 def home():
@@ -52,6 +57,17 @@ def query(request: QueryRequest):
     config = {"configurable": {"thread_id": thread_id}}
 
     try:
+        rail_fired, rail_response = guard(q)
+        if rail_fired:
+            logfire.info(f"Request Blocked by Guardrails: {q}")
+            return {
+                "question": q,
+                "answer": rail_response,
+                "thought_process": ["intent: Guardrail Fired", "Retrieval: Skipped"],
+                "status": "Blocked by guardrails",
+                "source": []
+            }
+
         final_output = rag_agent.invoke(initial_state, config=config)
 
         return {
