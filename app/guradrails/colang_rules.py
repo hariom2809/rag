@@ -108,10 +108,26 @@ instructions:
       Only answer questions about these topics. Be professional and concise.
 """
 
-RAIL_INDICATORS = [
-    "can't help with that — but ask me anything technical",
-    "I maintain consistent guidelines regardless of how I am prompted",
-    "Hello! I'm your Enterprise IT Assistant",
-    "Goodbye! Feel free to return whenever you have more enterprise IT questions",
-    "I'm an Enterprise AI Assistant with deep expertise in",
+TECHNICAL_KEYWORDS = [
+    "kubernetes", "pod", "deployment", "service", "cluster", "namespace",
+    "helm", "ingress", "egress", "operator",
+    "intel", "cpu", "gpu", "fpga", "nic", "sriov", "xeon",
+    "network", "networking", "vlan", "bgp", "routing", "sdn", "switch", "router", "firewall",
+    "load balancer", "latency", "throughput", "tls", "dns", "tcp", "udp"
 ]
+
+DEFAULT_REFUSAL_MESSAGE = (
+    "I'm an Enterprise IT Assistant focused on Kubernetes, Intel hardware, and networking. "
+    "I can't help with that — but ask me anything technical!"
+)
+
+# Names of the Colang `define flow <name>` blocks above that produce a canned
+# response. Used to trust NeMo's activated-rails log instead of matching the
+# generated text against hardcoded strings.
+DIALOG_RAIL_FLOW_NAMES = {
+    "handle off topic",
+    "jailbreak protection",
+    "greeting",
+    "capabilities",
+    "farewell",
+}
