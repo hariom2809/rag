@@ -1,0 +1,62 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bubbleStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2E6BFF"/>
+      <stop offset="45%" stop-color="#4A5CF0"/>
+      <stop offset="75%" stop-color="#8B3FE0"/>
+      <stop offset="100%" stop-color="#B92FD1"/>
+    </linearGradient>
+
+    <linearGradient id="cardFill" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#123A4A"/>
+      <stop offset="55%" stop-color="#0F2B4A"/>
+      <stop offset="100%" stop-color="#1B1440"/>
+    </linearGradient>
+
+    <linearGradient id="dotsFill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5A3FE0"/>
+      <stop offset="100%" stop-color="#9B2FD8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Speech bubble outline -->
+  <path d="M64 32
+           H176
+           C205.8 32 230 56.2 230 86
+           V138
+           C230 167.8 205.8 192 176 192
+           H108
+           L70 220
+           C66.5 222.6 62 220.1 62 215.8
+           V190.6
+           C40.4 187.1 26 168.4 26 146
+           V86
+           C26 56.2 50.2 32 80 32
+           H64 Z"
+        transform="translate(0,4)"
+        fill="none"
+        stroke="url(#bubbleStroke)"
+        stroke-width="13"
+        stroke-linejoin="round"
+        stroke-linecap="round"/>
+
+  <!-- Inner rounded "P" card -->
+  <rect x="88" y="60" width="92" height="92" rx="26" fill="url(#cardFill)"/>
+
+  <!-- Card tail (small notch bottom-left of card, like a P flag) -->
+  <path d="M88 128 V152 L108 138 Z" fill="url(#cardFill)"/>
+
+  <!-- Person icon: head -->
+  <circle cx="134" cy="94" r="14" fill="#FFFFFF"/>
+  <!-- Person icon: shoulders -->
+  <path d="M108 138
+           C108 120 118 112 134 112
+           C150 112 160 120 160 138
+           Z"
+        fill="#FFFFFF"/>
+
+  <!-- Three dots -->
+  <circle cx="110" cy="172" r="8" fill="url(#dotsFill)"/>
+  <circle cx="134" cy="172" r="8" fill="url(#dotsFill)"/>
+  <circle cx="158" cy="172" r="8" fill="url(#dotsFill)"/>
+</svg>

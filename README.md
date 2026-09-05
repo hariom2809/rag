@@ -45,14 +45,32 @@ rag
 
 ![Data Flow Diagram](docs/userflow.png)
 
-<div align=center> User Flow </div>
+<div align=center>Fig: 1.1- User Flow </div>
+
+
+![Ingestion Pipeline](docs/ingestion.png)
+
+<div align=center>Fig: 1.2- Ingestion Pipeline </div>
+
+
+![Agentic Intelligence](docs/agent.png)
+
+<div align=center> Fig 1.3- Agentic Decision Flow </div>
+
+
+![Guardrails](docs/guardrails.png)
+
+<div align=center>Fig: 1.4- Guardrails </div>
+
 
 ## Local Setup:
+
 
 1. Clone the Repository:
 ```bash
 git clone https://github.com/hariom2809/rag.git
 ```
+
 
 2. Get your API keys and tokens from the Gemini, Groq and Qdrant Cloud
 ```.env
@@ -70,12 +88,14 @@ GEMINI_API_KEY=your_api_key
 ```
 Look inot the .env.example there you will have all environment variable
 
+
 3. Make Virtual Environment
     - For this project I am using the UV Python package manager you can do the same with cPython
 ```bash
 uv venv --python 3.11
 ```
 For this we are using the runtime of 3.11 .  Can Verify from the [runtime](runtime.txt)
+
 
 4. Activate the Virtual Environment
     - Windows
@@ -87,18 +107,31 @@ For this we are using the runtime of 3.11 .  Can Verify from the [runtime](runti
     source .venv/bin/activate
     ```
 
-5. Now collect all of your documents and Data to be ingested in db and place it at the DATA folder under a subfolder by any name. Suppose we gave ti name raw_data ->  DATA/raw_data/....
-6. Go the Config file in the app folder app/config.py and change the name of your Qdrant collecion as of your choice
-7. Run the Ingestion Process
+
+5. INstall the required dependencies
+```bash
+uv pip install -r requirements.txt
+```
+
+
+6. Now collect all of your documents and Data to be ingested in db and place it at the DATA folder under a subfolder by any name. Suppose we gave ti name raw_data ->  DATA/raw_data/....
+
+
+7. Go the Config file in the app folder app/config.py and change the name of your Qdrant collecion as of your choice
+
+
+8. Run the Ingestion Process
 ```bash
 python -m app.ingestion.processor DATA/{your_folder_name} {your_destination_folder_name}
 ```
 The Data for the Local instance will got save at the processed_data directory 
 
-8. You are all set now run the server
+
+9. You are all set now run the server
 ```bash
 uvicorn app.main:app --reload --port 8000
 ```
+
 
 Now you can test your application on Engpoint
 ```https
