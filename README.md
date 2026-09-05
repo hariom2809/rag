@@ -11,6 +11,15 @@ RAG stands for Retrieval Augumented Generation.
 
 This is a **Personal Portfolio** project which answers only for the Data ingested during the time of Ingestion.  I have used this porject as the of my Personal Portfolio.
 
+
+<h2 align="center">RAG Demo Video</h2>
+<p align="center">
+  <a href="https://youtu.be/jAUd6G6h3vo?si=HzwGGhEaH4YczRoM">
+    <img src="./docs/thumbnail.png" width="700">
+  </a>
+</p>
+
+
 ## Motivation:
 
 The Motivaiton of making this project is that the personal portfolio are very similar type that everything is website based project. So, **RAG: Portfolio * is a use of Agentic AI at very base level and made a Chatbot which only talk about my details and facts I will provide in data points. 
