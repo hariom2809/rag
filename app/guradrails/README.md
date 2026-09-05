@@ -3,6 +3,8 @@
   <span style="font-size: 32px; font-weight: bold;">Guardrails</span>
 </p>
 
+![Guardrails](../../docs/guardrails.png)
+
 - Query Enter the Guardrail then guardrail check the query and Block and pass the query
 
     - Block
